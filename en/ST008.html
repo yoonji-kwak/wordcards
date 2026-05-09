@@ -6,9 +6,9 @@
 <title>mouse</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { 
+  body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background: #E4C1F4;
+    background: #E2EAC3;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -24,7 +24,12 @@
     max-width: 400px;
     width: 100%;
     text-align: center;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    height: 380px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
   }
   .room-tag {
     font-size: 11px;
@@ -32,19 +37,23 @@
     letter-spacing: 0.08em;
     color: rgba(0,0,0,0.4);
     text-transform: uppercase;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
   }
   .word {
     font-size: 52px;
     font-weight: 700;
     color: #111;
     line-height: 1.1;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
   }
   .pron {
-    font-size: 16px;
-    color: rgba(0,0,0,0.5);
-    margin-bottom: 32px;
+    font-size: 15px;
+    color: rgba(0,0,0,0.45);
+    margin-bottom: 20px;
     font-style: italic;
   }
   .play-btn {
@@ -52,24 +61,27 @@
     color: #fff;
     border: none;
     border-radius: 50px;
-    padding: 14px 36px;
-    font-size: 16px;
+    padding: 12px 32px;
+    font-size: 15px;
     font-weight: 600;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     gap: 8px;
     transition: transform 0.1s, opacity 0.2s;
-    margin-bottom: 32px;
+    margin-bottom: 20px;
+    flex-shrink: 0;
   }
   .play-btn:active { transform: scale(0.97); }
   .play-btn.playing { opacity: 0.6; }
-  .divider { 
-    height: 1px; 
-    background: rgba(0,0,0,0.1); 
-    margin-bottom: 24px;
+  .divider {
+    height: 1px;
+    background: rgba(0,0,0,0.1);
+    margin-bottom: 16px;
+    width: 100%;
+    flex-shrink: 0;
   }
-  .others { display: flex; flex-direction: column; gap: 10px; }
+  .others { display: flex; flex-direction: column; gap: 8px; width: 100%; }
   .other {
     display: flex;
     align-items: center;
@@ -85,7 +97,7 @@
     flex-shrink: 0;
   }
   .other-word {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 600;
     color: #222;
     flex: 1;
@@ -102,20 +114,15 @@
   <div class="room-tag">서재</div>
   <div class="word">mouse</div>
   <div class="pron">/maʊs/</div>
-  <button class="play-btn" onclick="playAudio(this)" id="playBtn">
-    ▶ Play
-  </button>
+  <button class="play-btn" onclick="playAudio(this)">▶ Play</button>
   <div class="divider"></div>
   <div class="others"><div class="other"><span class="other-lang">KO</span><span class="other-word">마우스</span><span class="other-pron">ma-u-seu</span></div><div class="other"><span class="other-lang">ES</span><span class="other-word">ratón</span><span class="other-pron"></span></div></div>
 </div>
 <audio id="audio" src="https://raw.githubusercontent.com/yoonji-kwak/wordcards-audio/main/english/ST008_en.mp3" preload="auto"></audio>
 <script>
-  // 자동 재생
   window.addEventListener('load', function() {
-    const audio = document.getElementById('audio');
-    audio.play().catch(() => {});
+    document.getElementById('audio').play().catch(() => {});
   });
-
   function playAudio(btn) {
     const audio = document.getElementById('audio');
     btn.classList.add('playing');
